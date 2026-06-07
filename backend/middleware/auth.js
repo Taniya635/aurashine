@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+require('dotenv').config({ override: true });
 
 module.exports = function (req, res, next) {
   const authHeader = req.header('Authorization') || req.header('authorization');

@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config({ override: true });
 
 const productsRouter = require('./routes/products');
 const cartRouter = require('./routes/cart');
@@ -12,10 +12,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/aura';
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error('MongoDB connection error', err));
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://kumara2138:Taniya%4009@aurashine.3nw1yjl.mongodb.net/aurashine?retryWrites=true&w=majority';
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log('MongoDB Connected'))
+  .catch((err) => {
+    console.error('MongoDB Error:', err);
+  });
 
 app.use('/api/products', productsRouter);
 app.use('/api/cart', cartRouter);

@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-require('dotenv').config();
+require('dotenv').config({ override: true });
 
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
