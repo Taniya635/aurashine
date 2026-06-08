@@ -1,0 +1,67 @@
+:root{
+  --motion-duration-fast: 200ms;
+  --motion-duration-medium: 400ms;
+  --motion-duration-slow: 700ms;
+  --easing-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+/* Page enter (fade + slight slide + scale) */
+@keyframes pageEnter {
+  0% { opacity: 0; transform: translateY(8px) scale(0.995); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Slide in from right */
+@keyframes slideInRight {
+  0% { opacity: 0; transform: translateX(24px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn { 0% { opacity: 0 } 100% { opacity: 1 } }
+
+@keyframes rippleScale { 0% { transform: scale(0); opacity: 0.36 } 100% { transform: scale(1); opacity: 0 } }
+
+@keyframes bounceIn {
+  0% { transform: scale(0.92); opacity: 0 }
+  60% { transform: scale(1.03); opacity: 1 }
+  100% { transform: scale(1); }
+}
+
+/* Generic page animation applied to pages */
+[class$="-page"], .page-wrapper {
+  animation: pageEnter var(--motion-duration-medium) var(--easing-smooth);
+}
+
+/* Slide/scale variants */
+.page-slide-in { animation: slideInRight var(--motion-duration-medium) var(--easing-smooth); }
+.page-fade { animation: fadeIn var(--motion-duration-fast) ease; }
+.page-scale { animation: pageEnter var(--motion-duration-slow) var(--easing-smooth); }
+
+/* Button hover/interactive helpers */
+.btn-animated { transition: transform 220ms var(--easing-smooth), box-shadow 220ms var(--easing-smooth); }
+.btn-animated:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 12px 30px rgba(0,0,0,0.36); }
+.btn-animated:active { transform: translateY(0) scale(0.995); }
+
+/* Ripple effect element added by JS */
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.1);
+  transform: scale(0);
+  animation: rippleScale 520ms ease-out;
+}
+
+/* Toast bounce */
+.bounce { animation: bounceIn var(--motion-duration-medium) var(--easing-smooth); }
+
+/* Stagger utilities for lists */
+.stagger-item { animation: cardFadeUp var(--motion-duration-medium) var(--easing-smooth) both; }
+
+/* Small accessibility helper to hide complex motion */
+.prefer-reduced-motion * { animation: none !important; transition: none !important; }

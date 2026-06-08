@@ -1,8 +1,0 @@
-{
-  "name": "aura",
-  "private": true,
-  "scripts": {
-    "dev": "cd backend && npm start",
-    "start": "cd backend && npm start"
-  }
-}
